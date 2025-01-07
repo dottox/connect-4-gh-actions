@@ -27,8 +27,4 @@ jobs:
         run: echo $ISSUE_TITLE
 
       - name: Run python print
-        env:
-          ISSUE_TITLE: ${{ github.event.issue.title }}
-        run: |
-          ISSUE_TITLE=$ISSUE_TITLE
-          python -c "import os;print(os.environ['ISSUE_TITLE'])"
+        run: python -c "import os;print(os.environ['ISSUE_TITLE'])"
