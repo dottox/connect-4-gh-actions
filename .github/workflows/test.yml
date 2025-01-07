@@ -11,10 +11,22 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+
+
 jobs:
   echo-in-console:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Load Python
+        uses: actions/setup-python@v5.3.0
+
       - name: Run a one-line script
-        run: echo ${{ github.event.issue.title }}
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+        run: echo $ISSUE_TITLE
+
+      - name: Run python print
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+        run: python -c 'import os;print(os.environ['ISSUE_TITLE']) 
