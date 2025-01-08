@@ -151,16 +151,18 @@ def reset_author() -> None:
 
 def write_readme(board: list[list[str]], author: str, movement: str, winner: str) -> None:
 
-  flag = False
+  first_iteration = True
 
   with open('README.md', 'w') as f:
     f.write('# Connect 4\n\n')
     for row in board:
+      if first_iteration:
+        f.write('| 0 | 1 | 2 | 3 | 4 | 5 | 6 |\n')
+        f.write('| - | - | - | - | - | - | - |\n')
+        first_iteration = False
       row[:] = ['🟥' if x == '1' else '🟦' if x == '2' else '‍ ' for x in row]
       f.write('| ' + ' | '.join(row) + ' |' + '\n')
-      if not flag:
-        f.write('| - | - | - | - | - | - | - |\n')
-        flag = True
+        
 
     if winner:
       f.write('\n### 🎉 ' + author + ' won the game with the ' + winner + ' team!\n')
