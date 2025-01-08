@@ -10,9 +10,9 @@ import os
 ############################################
 
 # Reset the board and the author
-def reset_everything() -> None:
+def reset_everything(red_turn: bool) -> None:
   create_board()
-  register_author('')
+  change_params('', red_turn)
 
 
 # Create a new board with 6 rows and 7 columns
@@ -78,18 +78,13 @@ def is_author_same_as_last_movement(author: str) -> bool:
 
 # Check if it is the red turn
 def is_red_turn(board: list[list[str]]) -> bool:
-  count_red = 0
-  count_blue = 0
-  for row in board:
-    print(row)
-    count_red += row.count('1')
-    count_blue += row.count('2')
-
+  with open('params.txt', 'r') as f:
+    team = f.readlines()[1].rstrip()
   
-  if count_red == count_blue:
+  if team == 'Red':
     return True
-
-  return False
+  else:
+    return False
 
 
 
@@ -163,9 +158,11 @@ def play_game(board: list[list[str]], movement: str, red_turn: bool) -> list[lis
 
 
 # Register the author in the corresponding file
-def register_author(author: str) -> None:
-  with open('last_author.txt', 'w') as f:
-    f.write(author)
+def change_params(author: str, red_turn: bool) -> None:
+  params = [author, 'Red' if red_turn else 'Blue']
+  
+  with open('params.txt', 'w') as f:
+    f.write('\n'.join(params))
 
 
 def write_readme(board: list[list[str]], author: str, movement: str, winner: str, red_turn: bool) -> None:
@@ -187,8 +184,8 @@ def write_readme(board: list[list[str]], author: str, movement: str, winner: str
         
     # Writing the last author and movement
     if winner:
-      f.write(f"\n### 🎉 {author} won the game with the {winner} team!\n")
-      f.write('### Red will start the new game!\n')
+      f.write(f"\n### 🎉 [{author}](https://github.com/{author}) won the game with the {winner} team!\n")
+      f.write(f"### **{'Red' if red_turn else 'Blue'}** will start the new game!\n")
     else:
       f.write(f"\n### Last movement: [{author}](https://github.com/{author})\n")
       f.write(f"### Played in column: {movement}\n")
@@ -201,7 +198,7 @@ def write_readme(board: list[list[str]], author: str, movement: str, winner: str
 
     # Writing the TO DO
     f.write('TO DO:\n')
-    f.write('- [ ] Both team could start the game, not only red\n')
+    f.write('- [ ] Reset game workflow\n')
     f.write('- [ ] Logging victories for both teams\n')
     f.write('- [ ] Logging authors, plays and wins, score system\n')
     f.write('- [ ] See old boards\n')
@@ -254,10 +251,10 @@ if __name__ == '__main__':
     # If there is a winner, reset the board and author
     # Else, write the board and register the author
     if winner:
-      reset_everything()
+      reset_everything(red_turn)
     else:
       write_board(board)
-      register_author(author)
+      change_params(author, red_turn)
 
     # Write the README
     write_readme(board, author, movement, winner, red_turn)
