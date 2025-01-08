@@ -175,7 +175,8 @@ def write_readme(board: list[list[str]], author: str, movement: str, winner: str
     f.write('TO DO:\n')
     f.write('- [ ] Both team could start the game, not only red\n')
     f.write('- [ ] Logging victories for both teams\n')
-    f.write('- [ ] Logging authors\n')
+    f.write('- [ ] Logging authors, plays and wins, score system\n')
+    f.write('- [ ] See old boards\n')
 
 
 ############################################  
