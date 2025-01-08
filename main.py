@@ -215,13 +215,13 @@ def write_readme(board: list[list[str]], author: str, movement: str, winner: str
       f.write(f"\n### 🎉 [{author}](https://github.com/{author}) won the game with the **{winner}** team!\n")
       f.write(f"#### **{'Red' if red_turn else 'Blue'}** will start the new game!")
     else:
-      f.write(f"\n#### Last movement by[{author}](https://github.com/{author}) in column {movement}\n")
-      f.write(f"\nNext turn: {'🟥' if red_turn else '🟦'}")
+      f.write(f"\n#### Last movement by [{author}](https://github.com/{author}) in column {movement}\n")
+      f.write(f"\nNext turn: {'🟥' if red_turn else '🟦'} team\n")
 
     # Writing the instructions
-    f.write('\n🕹️ For **playing**, just create an **issue** with the number of the column.\n')
+    f.write('\n🕹️ For **playing**, just create an **issue** with the number of the column.')
 
-    f.write('📊 You can see [stats here](https://github.com/dottox/connect-4-gh-actions/tree/main/stats). Updates of stats takes place when the game is finished.')
+    f.write('\n📊 You can see [stats here](https://github.com/dottox/connect-4-gh-actions/tree/main/stats). Updates of stats takes place when the game is finished.\n')
 
     f.write('\n---------------------------\n')
 
