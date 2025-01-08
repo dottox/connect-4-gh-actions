@@ -191,7 +191,7 @@ def write_readme(board: list[list[str]], author: str, movement: str, winner: str
       f.write('### Red will start the new game!\n')
     else:
       f.write(f"\n### Last movement: [{author}](https://github.com/{author})\n")
-      f.write(f"### Played in column: {movement}'\n")
+      f.write(f"### Played in column: {movement}\n")
       f.write(f"### Next turn: {'🟥' if red_turn else '🟦'} \n")
 
     # Writing the instructions
