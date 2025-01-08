@@ -61,33 +61,6 @@ def check_full_board(board: list[list[str]]) -> bool:
   return True
 
 
-def check_winner(board: list[list[str]], row: int, col: int) -> bool:
-  # Reverse the board to play from the bottom and get the token
-  board = board[::-1]
-  token = board[row][col]
-
-  # In any direction (horizontal, vertical, diagonal) check if there are 4 tokens of the same color
-  for r in range(row - 1, row + 2):
-    for c in range(col - 1, col + 2):
-      if r == row and c == col: # Skip the current position
-        continue
-
-      if r < 0 or r >= len(board) or c < 0 or c >= len(board[0]): # Skip if out of bounds
-        continue
-
-      if board[r][c] == token:
-        for i in range(1, 4):
-          new_row = row + i * (r - row)
-          new_col = col + i * (c - col)
-          try:
-            if board[new_row][new_col] != token:
-              break
-            if i == 3:
-              return True
-          except:
-            break
-  
-  return False
 
 ############################################  
 #
@@ -119,6 +92,39 @@ def is_red_turn(board: list[list[str]]) -> bool:
   return False
 
 
+
+def check_winner(board: list[list[str]], row: int, col: int) -> bool:
+  # Reverse the board to play from the bottom and get the token
+  board = board[::-1]
+  token = board[row][col]
+
+  # In any direction (horizontal, vertical, diagonal) check if there are 4 tokens of the same color
+  for r in range(row - 1, row + 2):
+    for c in range(col - 1, col + 2):
+      if r == row and c == col: # Skip the current position
+        continue
+
+      if r < 0 or r >= len(board) or c < 0 or c >= len(board[0]): # Skip if out of bounds
+        continue
+
+      if board[r][c] == token:
+        for i in range(1, 4):
+          new_row = row + i * (r - row)
+          new_col = col + i * (c - col)
+          try:
+            if board[new_row][new_col] != token:
+              break
+            if i == 3:
+              return True
+          except:
+            break
+  
+  return False
+
+
+def verify_movement(movement: str) -> None:
+  if not movement.isdigit() or int(movement) < 0 or int(movement) > 6:
+    raise Exception('Invalid movement')
 
 ############################################  
 #
@@ -215,6 +221,8 @@ if __name__ == '__main__':
     movement = os.getenv('MOVEMENT', '0')
     print('Author:', author)
     print('Movement:', movement)
+
+    verify_movement(movement)
 
     # Check if the last author is the same as the current author. NOT IN USE
     #if is_author_same_as_last_movement(author):
