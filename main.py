@@ -107,6 +107,8 @@ if __name__ == '__main__':
     autor = os.environ['AUTOR']
     movement = os.environ['MOVEMENT']
 
+    print('Autor:', autor)
+    print('Movement:', movement)
 
     if is_autor_same_as_last_movement(autor):
       print('Playing twice in a row.')
