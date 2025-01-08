@@ -43,6 +43,9 @@ def convert_board_to_list(board: list[str]) -> list[list[str]]:
   return new_board
 
 
+def register_autor(autor: str) -> None:
+  with open('last_autor.txt', 'w') as f:
+    f.write(autor)
 
 ############################################  
 #
