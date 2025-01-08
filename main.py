@@ -97,8 +97,10 @@ def is_red_turn(board: list[list[str]]) -> bool:
   count_red = 0
   count_blue = 0
   for row in board:
+    print(row)
     count_red += row.count('1')
     count_blue += row.count('2')
+
   
   if count_red == count_blue:
     return True
@@ -113,8 +115,8 @@ def is_red_turn(board: list[list[str]]) -> bool:
 #
 ############################################
 
-def play_game(board: list[list[str]], movement: str) -> list[list[str]]:
-  token = '1' if is_red_turn(board) else '2'
+def play_game(board: list[list[str]], movement: str, red_turn: bool) -> list[list[str]]:
+  token = '1' if red_turn else '2'
 
   flag = False
 
@@ -149,7 +151,7 @@ def reset_author() -> None:
   with open('last_author.txt', 'w') as f:
     f.write('')
 
-def write_readme(board: list[list[str]], author: str, movement: str, winner: str) -> None:
+def write_readme(board: list[list[str]], author: str, movement: str, winner: str, red_turn: bool) -> None:
 
   first_iteration = True
 
@@ -170,7 +172,7 @@ def write_readme(board: list[list[str]], author: str, movement: str, winner: str
     else:
       f.write('\n### Last movement: ' + author + '\n')
       f.write('### Played in column: ' + movement + '\n')
-      f.write('### Next turn: ' + ('🟥' if is_red_turn(board) else '🟦') + '\n')
+      f.write('### Next turn: ' + ('🟥' if red_turn else '🟦') + '\n')
 
     f.write('\n🕹️ For playing, just create an **issue** with the number of the column.\n')
 
@@ -203,11 +205,12 @@ if __name__ == '__main__':
 
     board = read_board()
     board = convert_board_to_list(board)
+    red_turn = is_red_turn(board)
 
     winner = ""
 
     try:
-      board = play_game(board, movement)
+      board = play_game(board, movement, red_turn)
     except Exception as e:
       if str(e) == 'Red Wins':
         winner = 'Red'
@@ -215,6 +218,8 @@ if __name__ == '__main__':
         winner = 'Blue'
       else:
         raise Exception(str(e))
+      
+    red_turn = not red_turn
 
     if winner:
       reset_everything()
@@ -222,7 +227,7 @@ if __name__ == '__main__':
       write_board(board)
       register_author(author)
 
-    write_readme(board, author, movement, winner)
+    write_readme(board, author, movement, winner, red_turn)
     print('Game played successfully')
 
     
