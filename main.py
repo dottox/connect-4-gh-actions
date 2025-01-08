@@ -55,6 +55,7 @@ def check_full_board(board: list[list[str]]) -> bool:
 
 
 def check_winner(board: list[list[str]], row: int, col: int) -> bool:
+  board = board[::-1]
   token = board[row][col]
 
   for r in range(row - 1, row + 2):
@@ -160,14 +161,15 @@ def write_readme(board: list[list[str]], autor: str, movement: str, winner: str)
         f.write('| - | - | - | - | - | - | - |\n')
         flag = True
 
-    if autor:
-      f.write('\n### Last movement: ' + autor + '\n')
-    if movement:
-      f.write('### Played in column: ' + movement + '\n')
-    f.write('### Next turn: ' + ('🟥' if is_red_turn(board) else '🟦') + '\n')
     if winner:
-      f.write('### 🎉 The winner of last game was: ' + winner + '\n')
-    f.write('\n\n🕹️ For playing, just create an **issue** with the column you want to play.\n')
+      f.write('### 🎉 ' + autor + ' won the game with the ' + winner + ' team!\n')
+      f.write('### Red will start the new game!\n')
+    else:
+      f.write('\n### Last movement: ' + autor + '\n')
+      f.write('### Played in column: ' + movement + '\n')
+      f.write('### Next turn: ' + ('🟥' if is_red_turn(board) else '🟦') + '\n')
+
+    f.write('\n🕹️ For playing, just create an **issue** with the number of the column.\n')
 
 
 ############################################  
@@ -179,8 +181,8 @@ def write_readme(board: list[list[str]], autor: str, movement: str, winner: str)
 
 if __name__ == '__main__':
 
-    autor = os.environ['AUTOR']
-    movement = os.environ['MOVEMENT']
+    autor = os.getenv('AUTOR', 'n/a')
+    movement = os.getenv('MOVEMENT', '0')
 
     print('Autor:', autor)
     print('Movement:', movement)
@@ -206,11 +208,10 @@ if __name__ == '__main__':
 
     if winner:
       reset_everything()
-      autor, movement = '', ''
     else:
       write_board(board)
       register_autor(autor)
-      
+
     write_readme(board, autor, movement, winner)
     print('Game played successfully')
 
