@@ -103,6 +103,7 @@ def is_red_turn(board: list[list[str]]) -> bool:
   if count_red == count_blue:
     return True
 
+  return False
 
 
 
