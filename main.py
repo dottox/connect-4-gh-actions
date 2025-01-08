@@ -1,5 +1,5 @@
 import os
-
+import logdb
 
 
 
@@ -103,6 +103,9 @@ def check_winner(board: list[list[str]], row: int, col: int) -> bool:
         continue
 
       if board[r][c] == token:
+        token_sum = 0
+        
+        # Check first direction
         for i in range(1, 4):
           new_row = row + i * (r - row)
           new_col = col + i * (c - col)
@@ -111,8 +114,27 @@ def check_winner(board: list[list[str]], row: int, col: int) -> bool:
               break
             if i == 3:
               return True
+            else:
+              token_sum += 1
           except:
             break
+        
+        # Check inverse direction
+        for i in range(1, 4):
+          new_row = row - i * (r - row)
+          new_col = col - i * (c - col)
+          try:
+            if board[new_row][new_col] != token:
+              break
+            if i == 3:
+              return True
+            else:
+              token_sum += 1
+          except:
+            break
+
+          if token_sum == 3:
+            return True
   
   return False
 
@@ -165,6 +187,12 @@ def change_params(author: str, red_turn: bool) -> None:
     f.write('\n'.join(params))
 
 
+############################################  
+#
+#     /*      README FUNCTION     */
+#
+############################################
+
 def write_readme(board: list[list[str]], author: str, movement: str, winner: str, red_turn: bool) -> None:
   first_iteration = True
 
@@ -184,12 +212,12 @@ def write_readme(board: list[list[str]], author: str, movement: str, winner: str
         
     # Writing the last author and movement
     if winner:
-      f.write(f"\n### 🎉 [{author}](https://github.com/{author}) won the game with the {winner} team!\n")
-      f.write(f"### **{'Red' if red_turn else 'Blue'}** will start the new game!\n")
+      f.write(f"\n### 🎉 [{author}](https://github.com/{author}) won the game with the **{winner}** team!\n")
+      f.write(f"#### **{'Red' if red_turn else 'Blue'}** will start the new game!\n")
     else:
       f.write(f"\n### Last movement: [{author}](https://github.com/{author})\n")
       f.write(f"### Played in column: {movement}\n")
-      f.write(f"### Next turn: {'🟥' if red_turn else '🟦'} \n")
+      f.write(f"#### Next turn: {'🟥' if red_turn else '🟦'} \n")
 
     # Writing the instructions
     f.write('\n🕹️ For playing, just create an **issue** with the number of the column.\n')
@@ -204,6 +232,29 @@ def write_readme(board: list[list[str]], author: str, movement: str, winner: str
     f.write('- [ ] See old boards\n')
 
 
+def write_stat_readme() -> None:
+  with open('stats/README.md', 'w') as f:
+    f.write('# Connect 4 Stats\n\n')
+
+    player_stats = logdb.get_player_stats()
+    teams_stats = logdb.get_teams_stats()
+
+    f.write('| Author | Movements | Wins |\n')
+    f.write('| ------ | --------- | ---- |\n')
+    for player in player_stats:
+      f.write(f'| {player[0]} | {player[1]} | {player[2]} |\n')
+    
+    f.write('\n---------------------------\n')
+
+    f.write('| Team | Wins |\n')
+    f.write('| ---- | ---- |\n')
+    for team in teams_stats:
+      f.write(f'| {"Red" if team[0] == 1 else "Blue"} | {team[1]} |\n')
+
+    f.write('\n---------------------------\n')
+    f.write('#### [Go back to the main page](https://github.com/dottox/connect-4-gh-actions)\n')
+
+
 ############################################  
 #
 #     /*      LOGIC     */
@@ -216,9 +267,12 @@ if __name__ == '__main__':
     # Get the author and movement from the environment
     author = os.getenv('AUTHOR', 'n/a')
     movement = os.getenv('MOVEMENT', '0')
+    author_id = os.getenv('AUTHOR_ID', '0')
     print('Author:', author)
     print('Movement:', movement)
+    print('Author ID:', author_id)
 
+    # Verify is the movemente is valid
     verify_movement(movement)
 
     # Check if the last author is the same as the current author. NOT IN USE
@@ -231,12 +285,12 @@ if __name__ == '__main__':
     board = convert_board_to_list(board)
 
     # Check if is the red turn
-    red_turn = is_red_turn(board)
+    is_red_turn_actual = is_red_turn(board)
 
     # Play the game with the movement and check if any winners
     winner = ""
     try:
-      board = play_game(board, movement, red_turn)
+      board = play_game(board, movement, is_red_turn_actual)
     except Exception as e:
       if str(e) == 'Red Wins':
         winner = 'Red'
@@ -244,20 +298,31 @@ if __name__ == '__main__':
         winner = 'Blue'
       else:
         raise Exception(str(e))
+      
+    # Migrate DB
+    if not logdb.health_check():
+      logdb.migrate_db()
     
+    # Insert player into the database and sum one movement
+    if not logdb.get_player(author_id):
+      logdb.insert_player(author_id, author)
+    logdb.sum_movement(author_id)
+
     # Change the turn
-    red_turn = not red_turn
+    is_red_turn_new = not is_red_turn_actual
 
     # If there is a winner, reset the board and author
     # Else, write the board and register the author
     if winner:
-      reset_everything(red_turn)
+      reset_everything(is_red_turn_new)
+      logdb.insert_game(board, author_id, is_red_turn_actual)
+      write_stat_readme()
     else:
       write_board(board)
-      change_params(author, red_turn)
+      change_params(author, is_red_turn_new)
 
     # Write the README
-    write_readme(board, author, movement, winner, red_turn)
+    write_readme(board, author, movement, winner, is_red_turn_new)
     print('Game played successfully')
 
     

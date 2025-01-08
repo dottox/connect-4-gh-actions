@@ -7,17 +7,17 @@
 | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
 | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
 | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
-| ‍  | ‍  | 🟦 | ‍  | ‍  | ‍  | ‍  |
+| ‍  | ‍  | 🟥 | ‍  | ‍  | ‍  | ‍  |
 
-### Last movement: [asd](https://github.com/asd)
+### Last movement: [dottox](https://github.com/dottox)
 ### Played in column: 2
-### Next turn: 🟥 
+#### Next turn: 🟦 
 
 🕹️ For playing, just create an **issue** with the number of the column.
 
 ---------------------------
 TO DO:
-- [ ] Both team could start the game, not only red
+- [ ] Reset game workflow
 - [ ] Logging victories for both teams
 - [ ] Logging authors, plays and wins, score system
 - [ ] See old boards
