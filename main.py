@@ -11,7 +11,7 @@ import os
 
 def reset_everything() -> None:
   create_board()
-  reset_autor()
+  reset_author()
 
 def create_board() -> None:
   board = [['0' for _ in range(7)] for _ in range(6)]
@@ -86,11 +86,11 @@ def check_winner(board: list[list[str]], row: int, col: int) -> bool:
 #
 ############################################
 
-def is_autor_same_as_last_movement(autor: str) -> bool:
-  with open('last_autor.txt', 'r') as f:
-    last_autor = f.read()
+def is_author_same_as_last_movement(author: str) -> bool:
+  with open('last_author.txt', 'r') as f:
+    last_author = f.read()
   
-  return autor == last_autor
+  return author == last_author
 
 
 def is_red_turn(board: list[list[str]]) -> bool:
@@ -140,15 +140,15 @@ def play_game(board: list[list[str]], movement: str) -> list[list[str]]:
 
 
 
-def register_autor(autor: str) -> None:
-  with open('last_autor.txt', 'w') as f:
-    f.write(autor)
+def register_author(author: str) -> None:
+  with open('last_author.txt', 'w') as f:
+    f.write(author)
 
-def reset_autor() -> None:
-  with open('last_autor.txt', 'w') as f:
+def reset_author() -> None:
+  with open('last_author.txt', 'w') as f:
     f.write('')
 
-def write_readme(board: list[list[str]], autor: str, movement: str, winner: str) -> None:
+def write_readme(board: list[list[str]], author: str, movement: str, winner: str) -> None:
 
   flag = False
 
@@ -162,14 +162,20 @@ def write_readme(board: list[list[str]], autor: str, movement: str, winner: str)
         flag = True
 
     if winner:
-      f.write('### 🎉 ' + autor + ' won the game with the ' + winner + ' team!\n')
+      f.write('\n### 🎉 ' + author + ' won the game with the ' + winner + ' team!\n')
       f.write('### Red will start the new game!\n')
     else:
-      f.write('\n### Last movement: ' + autor + '\n')
+      f.write('\n### Last movement: ' + author + '\n')
       f.write('### Played in column: ' + movement + '\n')
       f.write('### Next turn: ' + ('🟥' if is_red_turn(board) else '🟦') + '\n')
 
     f.write('\n🕹️ For playing, just create an **issue** with the number of the column.\n')
+
+    f.write('\n---------------------------\n')
+    f.write('TO DO:\n')
+    f.write('- [ ] Both team could start the game, not only red\n')
+    f.write('- [ ] Logging victories for both teams\n')
+    f.write('- [ ] Logging authors\n')
 
 
 ############################################  
@@ -181,13 +187,13 @@ def write_readme(board: list[list[str]], autor: str, movement: str, winner: str)
 
 if __name__ == '__main__':
 
-    autor = os.getenv('AUTOR', 'n/a')
+    author = os.getenv('AUTHOR', 'n/a')
     movement = os.getenv('MOVEMENT', '0')
 
-    print('Autor:', autor)
+    print('Author:', author)
     print('Movement:', movement)
 
-    #if is_autor_same_as_last_movement(autor):
+    #if is_author_same_as_last_movement(author):
       #print('Playing twice in a row.')
       #raise Exception('Playing twice in a row.')
 
@@ -210,9 +216,9 @@ if __name__ == '__main__':
       reset_everything()
     else:
       write_board(board)
-      register_autor(autor)
+      register_author(author)
 
-    write_readme(board, autor, movement, winner)
+    write_readme(board, author, movement, winner)
     print('Game played successfully')
 
     
