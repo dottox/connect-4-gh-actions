@@ -113,9 +113,9 @@ if __name__ == '__main__':
     print('Autor:', autor)
     print('Movement:', movement)
 
-    if is_autor_same_as_last_movement(autor):
-      print('Playing twice in a row.')
-      raise Exception('Playing twice in a row.')
+    #if is_autor_same_as_last_movement(autor):
+      #print('Playing twice in a row.')
+      #raise Exception('Playing twice in a row.')
 
     board = read_board()
     board = convert_board_to_list(board)
