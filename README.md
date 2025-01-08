@@ -7,11 +7,11 @@
 | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
 | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
 | ‍  | ‍  | 🟥 | ‍  | ‍  | ‍  | ‍  |
-| ‍  | 🟥 | 🟦 | ‍  | ‍  | ‍  | ‍  |
+| ‍  | 🟥 | 🟦 | 🟦 | ‍  | ‍  | ‍  |
 
 ### Last movement: [dottox](https://github.com/dottox)
-### Played in column: 2'
-### Next turn: 🟦 
+### Played in column: 3
+### Next turn: 🟥 
 
 🕹️ For playing, just create an **issue** with the number of the column.
 
