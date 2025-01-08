@@ -5,12 +5,12 @@
 | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
 | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
 | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
-| ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
+| ‍  | ‍  | ‍  | ‍  | ‍  | 🟦 | ‍  |
 | ‍  | ‍  | ‍  | ‍  | ‍  | 🟦 | ‍  |
 | ‍  | ‍  | ‍  | ‍  | 🟥 | 🟥 | ‍  |
 
 ### Last movement: dottox
-### Played in column: 4
+### Played in column: 5
 ### Next turn: 🟥
 
 🕹️ For playing, just create an **issue** with the number of the column.
