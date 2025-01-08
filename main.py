@@ -19,19 +19,19 @@ def reset_everything(red_turn: bool) -> None:
 def create_board() -> None:
   board = [['0' for _ in range(7)] for _ in range(6)]
   
-  with open('board.txt', 'w') as f:
+  with open('txt-files/board.txt', 'w') as f:
     for row in board:
       f.write(' '.join(row) + '\n')
 
 
 # Read the board from the corresponding file
 def read_board() -> list[str]:
-  with open('board.txt', 'r') as f:
+  with open('txt-files/board.txt', 'r') as f:
     board = f.readlines()
   
   if not board:
     create_board()
-    with open('board.txt', 'r') as f:
+    with open('txt-files/board.txt', 'r') as f:
       board = f.readlines()
   
   return board
@@ -39,7 +39,7 @@ def read_board() -> list[str]:
 
 # Write the board to the corresponding file
 def write_board(board: list[list[str]]) -> None:
-  with open('board.txt', 'w') as f:
+  with open('txt-files/board.txt', 'w') as f:
     for row in board:
       f.write(' '.join(row) + '\n')
 
@@ -70,15 +70,15 @@ def check_full_board(board: list[list[str]]) -> bool:
 
 # Check if the author is the same as the last movement. NOT IN USE
 def is_author_same_as_last_movement(author: str) -> bool:
-  with open('last_author.txt', 'r') as f:
-    last_author = f.read()
+  with open('txt-files/params.txt', 'r') as f:
+    last_author = f.readlines()[0].rstrip()
   
   return author == last_author
 
 
 # Check if it is the red turn
 def is_red_turn(board: list[list[str]]) -> bool:
-  with open('params.txt', 'r') as f:
+  with open('txt-files/params.txt', 'r') as f:
     team = f.readlines()[1].rstrip()
   
   if team == 'Red':
@@ -183,7 +183,7 @@ def play_game(board: list[list[str]], movement: str, red_turn: bool) -> list[lis
 def change_params(author: str, red_turn: bool) -> None:
   params = [author, 'Red' if red_turn else 'Blue']
   
-  with open('params.txt', 'w') as f:
+  with open('txt-files/params.txt', 'w') as f:
     f.write('\n'.join(params))
 
 
@@ -213,22 +213,22 @@ def write_readme(board: list[list[str]], author: str, movement: str, winner: str
     # Writing the last author and movement
     if winner:
       f.write(f"\n### 🎉 [{author}](https://github.com/{author}) won the game with the **{winner}** team!\n")
-      f.write(f"#### **{'Red' if red_turn else 'Blue'}** will start the new game!\n")
+      f.write(f"#### **{'Red' if red_turn else 'Blue'}** will start the new game!")
     else:
-      f.write(f"\n### Last movement: [{author}](https://github.com/{author})\n")
-      f.write(f"### Played in column: {movement}\n")
-      f.write(f"#### Next turn: {'🟥' if red_turn else '🟦'} \n")
+      f.write(f"\n#### Last movement by[{author}](https://github.com/{author}) in column {movement}\n")
+      f.write(f"\nNext turn: {'🟥' if red_turn else '🟦'}")
 
     # Writing the instructions
-    f.write('\n🕹️ For playing, just create an **issue** with the number of the column.\n')
+    f.write('\n🕹️ For **playing**, just create an **issue** with the number of the column.\n')
+
+    f.write('📊 You can see [stats here](https://github.com/dottox/connect-4-gh-actions/tree/main/stats). Updates of stats takes place when the game is finished.')
 
     f.write('\n---------------------------\n')
 
     # Writing the TO DO
     f.write('TO DO:\n')
     f.write('- [ ] Reset game workflow\n')
-    f.write('- [ ] Logging victories for both teams\n')
-    f.write('- [ ] Logging authors, plays and wins, score system\n')
+    f.write('- [ ] Score system\n')
     f.write('- [ ] See old boards\n')
 
 
