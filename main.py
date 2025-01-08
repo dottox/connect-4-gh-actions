@@ -187,12 +187,12 @@ def write_readme(board: list[list[str]], author: str, movement: str, winner: str
         
     # Writing the last author and movement
     if winner:
-      f.write('\n### 🎉 ' + author + ' won the game with the ' + winner + ' team!\n')
+      f.write(f"\n### 🎉 {author} won the game with the {winner} team!\n")
       f.write('### Red will start the new game!\n')
     else:
-      f.write('\n### Last movement: ' + author + '\n')
-      f.write('### Played in column: ' + movement + '\n')
-      f.write('### Next turn: ' + ('🟥' if red_turn else '🟦') + '\n')
+      f.write(f"\n### Last movement: [{author}](https://github.com/{author})\n")
+      f.write(f"### Played in column: {movement}'\n")
+      f.write(f"### Next turn: {'🟥' if red_turn else '🟦'} \n")
 
     # Writing the instructions
     f.write('\n🕹️ For playing, just create an **issue** with the number of the column.\n')
