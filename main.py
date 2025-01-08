@@ -43,10 +43,6 @@ def convert_board_to_list(board: list[str]) -> list[list[str]]:
   return new_board
 
 
-def register_autor(autor: str) -> None:
-  with open('last_autor.txt', 'w') as f:
-    f.write(autor)
-
 ############################################  
 #
 #     /*      BOOLEAN FUNCTIONS     */
@@ -97,6 +93,26 @@ def play_game(board: list[list[str]], movement: str) -> list[list[str]]:
 
 
 
+def register_autor(autor: str) -> None:
+  with open('last_autor.txt', 'w') as f:
+    f.write(autor)
+
+
+def write_readme(board: list[list[str]], autor: str, movement: str) -> None:
+
+  flag = False
+
+  with open('README.md', 'w') as f:
+    f.write('# Connect 4\n\n')
+    for row in board:
+      row[:] = ['🟥' if x == '1' else '🟦' if x == '2' else '‍ ' for x in row]
+      f.write('| ' + ' | '.join(row) + ' |' + '\n')
+      if not flag:
+        f.write('| - | - | - | - | - | - | - |\n')
+        flag = True
+
+  f.write('\nLast movement: ' + os.environ['AUTOR'] + ' played in column ' + os.environ['MOVEMENT'] + '\n')
+
 
 ############################################  
 #
@@ -121,7 +137,9 @@ if __name__ == '__main__':
     board = convert_board_to_list(board)
 
     board = play_game(board, movement)
+    "‍ "
 
+    write_readme(board)
     register_autor(autor)
     write_board(board)
     print('Game played successfully')
