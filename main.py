@@ -47,6 +47,13 @@ def convert_board_to_list(board: list[str]) -> list[list[str]]:
   return new_board
 
 
+def check_full_board(board: list[list[str]]) -> bool:
+  for row in board:
+    if '0' in row:
+      return False
+  return True
+
+
 def check_winner(board: list[list[str]], row: int, col: int) -> bool:
   token = board[row][col]
 
@@ -54,10 +61,12 @@ def check_winner(board: list[list[str]], row: int, col: int) -> bool:
     for c in range(col - 1, col + 2):
       if r == row and c == col:
         continue
+
       if r < 0 or r >= len(board) or c < 0 or c >= len(board[0]):
         continue
+
       if board[r][c] == token:
-        for i in range(2, 4):
+        for i in range(1, 4):
           new_row = row + i * (r - row)
           new_col = col + i * (c - col)
           try:
@@ -198,9 +207,10 @@ if __name__ == '__main__':
     if winner:
       reset_everything()
       autor, movement = '', ''
-
-    write_board(board)
-    register_autor(autor)
+    else:
+      write_board(board)
+      register_autor(autor)
+      
     write_readme(board, autor, movement, winner)
     print('Game played successfully')
 
