@@ -27,5 +27,5 @@ jobs:
       - name: Run python print
         env:
           MOVEMENT: ${{ github.event.issue.title }}
-          AUTOR: ${{ github.event.issue.user.name }}
+          AUTOR: ${{ github.event.issue.user.login }}
         run: python main.py
