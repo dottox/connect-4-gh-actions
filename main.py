@@ -111,7 +111,7 @@ def write_readme(board: list[list[str]], autor: str, movement: str) -> None:
         f.write('| - | - | - | - | - | - | - |\n')
         flag = True
 
-  f.write('\nLast movement: ' + os.environ['AUTOR'] + ' played in column ' + os.environ['MOVEMENT'] + '\n')
+    f.write('\nLast movement: ' + os.environ['AUTOR'] + ' played in column ' + os.environ['MOVEMENT'] + '\n')
 
 
 ############################################  
