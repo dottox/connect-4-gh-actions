@@ -219,7 +219,7 @@ def write_readme(board: list[list[str]], author: str, movement: str, winner: str
       f.write(f"\nNext turn: {'🟥' if red_turn else '🟦'} team\n")
 
     # Writing the instructions
-    f.write('\n🕹️ For **playing**, just create an **issue** with the number of the column.')
+    f.write('\n🕹️ For **playing**, just create an **issue** with the number of the column.\n')
 
     f.write('\n📊 You can see [stats here](https://github.com/dottox/connect-4-gh-actions/tree/main/stats). Updates of stats takes place when the game is finished.\n')
 
