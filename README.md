@@ -6,12 +6,12 @@
 | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
 | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
 | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
-| ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
+| ‍  | ‍  | 🟥 | ‍  | ‍  | ‍  | ‍  |
 | ‍  | 🟥 | 🟦 | ‍  | ‍  | ‍  | ‍  |
 
-### Last movement: dottox
-### Played in column: 2
-### Next turn: 🟥
+### Last movement: [dottox](https://github.com/dottox)
+### Played in column: 2'
+### Next turn: 🟦 
 
 🕹️ For playing, just create an **issue** with the number of the column.
 
