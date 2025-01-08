@@ -6,6 +6,6 @@
 | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
 | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
 | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
-| ‍  | ‍  | ‍  | 🟥 | ‍  | ‍  | ‍  |
+| ‍  | ‍  | 🟦 | 🟥 | ‍  | ‍  | ‍  |
 
-Last movement: dottox played in column 3
+Last movement: dottox played in column 2
