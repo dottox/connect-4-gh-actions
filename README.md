@@ -1,15 +1,16 @@
 # Connect 4
 
-| ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 |
 | - | - | - | - | - | - | - |
 | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
 | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
 | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
 | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
-| ‍  | ‍  | ‍  | ‍  | ‍  | 🟥 | ‍  |
+| ‍  | ‍  | ‍  | ‍  | ‍  | 🟦 | ‍  |
+| ‍  | ‍  | ‍  | ‍  | 🟥 | 🟥 | ‍  |
 
-### Last movement: n/a
-### Played in column: 5
+### Last movement: dottox
+### Played in column: 4
 ### Next turn: 🟥
 
 🕹️ For playing, just create an **issue** with the number of the column.
