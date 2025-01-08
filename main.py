@@ -139,9 +139,9 @@ if __name__ == '__main__':
     board = play_game(board, movement)
     "‍ "
 
-    write_readme(board, autor, movement)
-    register_autor(autor)
     write_board(board)
+    register_autor(autor)
+    write_readme(board, autor, movement)
     print('Game played successfully')
 
     
