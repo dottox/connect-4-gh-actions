@@ -111,7 +111,10 @@ def write_readme(board: list[list[str]], autor: str, movement: str) -> None:
         f.write('| - | - | - | - | - | - | - |\n')
         flag = True
 
-    f.write('\nLast movement: ' + os.environ['AUTOR'] + ' played in column ' + os.environ['MOVEMENT'] + '\n')
+    f.write('\n### Last movement: ' + os.environ['AUTOR'] + '\n')
+    f.write('### Played in column: ' + os.environ['MOVEMENT'] + '\n')
+    f.write('### Next turn: ' + ('🟥' if is_red_turn(board) else '🟦') + '\n')
+    f.write('\n\n🕹️ For playing, just create an **issue** with the column you want to play.\n')
 
 
 ############################################  
