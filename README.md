@@ -7,17 +7,17 @@
 | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
 | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
 | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  | ‍  |
-| ‍  | ‍  | 🟥 | ‍  | ‍  | ‍  | ‍  |
+| ‍  | ‍  | 🟥 | ‍  | ‍  | ‍  | 🟦 |
 
-### Last movement: [dottox](https://github.com/dottox)
-### Played in column: 2
-#### Next turn: 🟦 
+#### Last movement by [dottox](https://github.com/dottox) in column 6
 
-🕹️ For playing, just create an **issue** with the number of the column.
+Next turn: 🟥 team
+
+🕹️ For **playing**, just create an **issue** with the number of the column.
+📊 You can see [stats here](https://github.com/dottox/connect-4-gh-actions/tree/main/stats). Updates of stats takes place when the game is finished.
 
 ---------------------------
 TO DO:
 - [ ] Reset game workflow
-- [ ] Logging victories for both teams
-- [ ] Logging authors, plays and wins, score system
+- [ ] Score system
 - [ ] See old boards
