@@ -9,6 +9,10 @@ import os
 #
 ############################################
 
+def reset_everything() -> None:
+  create_board()
+  reset_autor()
+
 def create_board() -> None:
   board = [['0' for _ in range(7)] for _ in range(6)]
   
@@ -42,6 +46,29 @@ def convert_board_to_list(board: list[str]) -> list[list[str]]:
     new_board.append(row.split(' '))
   return new_board
 
+
+def check_winner(board: list[list[str]], row: int, col: int) -> bool:
+  token = board[row][col]
+
+  for r in range(row - 1, row + 2):
+    for c in range(col - 1, col + 2):
+      if r == row and c == col:
+        continue
+      if r < 0 or r >= len(board) or c < 0 or c >= len(board[0]):
+        continue
+      if board[r][c] == token:
+        for i in range(2, 4):
+          new_row = row + i * (r - row)
+          new_col = col + i * (c - col)
+          try:
+            if board[new_row][new_col] != token:
+              break
+            if i == 3:
+              return True
+          except:
+            break
+  
+  return False
 
 ############################################  
 #
@@ -80,14 +107,24 @@ def play_game(board: list[list[str]], movement: str) -> list[list[str]]:
 
   flag = False
 
-  for row in board[::-1]:
+  new_board = board[::-1]
+
+  for rowIndex, row in enumerate(new_board):
     if row[int(movement)] == '0':
       row[int(movement)] = token
       flag = True
+
+      if check_winner(board, rowIndex, int(movement)):
+        raise Exception('Red Wins') if token == '1' else Exception('Blue Wins')
+
       break
 
   if not flag:
-    raise Exception('Invalid movement')
+    if check_full_board(board):
+      raise Exception('Board is full')
+    else:
+      raise Exception('Invalid movement')
+
   
   return board
 
@@ -97,8 +134,11 @@ def register_autor(autor: str) -> None:
   with open('last_autor.txt', 'w') as f:
     f.write(autor)
 
+def reset_autor() -> None:
+  with open('last_autor.txt', 'w') as f:
+    f.write('')
 
-def write_readme(board: list[list[str]], autor: str, movement: str) -> None:
+def write_readme(board: list[list[str]], autor: str, movement: str, winner: str) -> None:
 
   flag = False
 
@@ -111,9 +151,13 @@ def write_readme(board: list[list[str]], autor: str, movement: str) -> None:
         f.write('| - | - | - | - | - | - | - |\n')
         flag = True
 
-    f.write('\n### Last movement: ' + autor + '\n')
-    f.write('### Played in column: ' + movement + '\n')
+    if autor:
+      f.write('\n### Last movement: ' + autor + '\n')
+    if movement:
+      f.write('### Played in column: ' + movement + '\n')
     f.write('### Next turn: ' + ('🟥' if is_red_turn(board) else '🟦') + '\n')
+    if winner:
+      f.write('### 🎉 The winner of last game was: ' + winner + '\n')
     f.write('\n\n🕹️ For playing, just create an **issue** with the column you want to play.\n')
 
 
@@ -139,12 +183,25 @@ if __name__ == '__main__':
     board = read_board()
     board = convert_board_to_list(board)
 
-    board = play_game(board, movement)
-    "‍ "
+    winner = ""
+
+    try:
+      board = play_game(board, movement)
+    except Exception as e:
+      if str(e) == 'Red Wins':
+        winner = 'Red'
+      elif str(e) == 'Blue Wins':
+        winner = 'Blue'
+      else:
+        raise Exception(str(e))
+
+    if winner:
+      reset_everything()
+      autor, movement = '', ''
 
     write_board(board)
     register_autor(autor)
-    write_readme(board, autor, movement)
+    write_readme(board, autor, movement, winner)
     print('Game played successfully')
 
     
